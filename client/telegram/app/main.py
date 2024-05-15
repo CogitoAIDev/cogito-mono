@@ -3,7 +3,6 @@ import logging
 import sys
 
 from app.config import dp, bot
-from app.handlers import start_router, message_router
 
 
 async def main() -> None:

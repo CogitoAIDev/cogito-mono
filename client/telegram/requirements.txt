@@ -1,0 +1,7 @@
+aiogram==3.6
+
+python-dotenv
+
+httpx
+pytest
+pytest-asyncio

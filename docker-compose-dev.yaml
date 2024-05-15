@@ -60,7 +60,7 @@ volumes:
 
 networks:
   reverse-proxy:
-    external:
-      name: reverse-proxy
+    name: reverse-proxy
+    external: true
   back:
     driver: bridge

@@ -1,0 +1,66 @@
+version: "3.8"
+services:
+  tg:
+    image: cogito-tg
+    container_name: cogito_tg
+    build:
+      context: ./client/telegram
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 7345:7345
+    env_file:
+      - ./client/telegram/.env
+    # environment:
+    #   - LEVEL_LOGGING=DEBUG
+    networks:
+      - reverse-proxy
+      - back
+    # volumes:
+    # - ./logs/dices.log:/app/dices.log
+
+  app:
+    image: cogito-app
+    container_name: cogito_app
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+    env_file:
+      - ./server/.env
+    # environment:
+    #   - LEVEL_LOGGING=DEBUG
+    networks:
+      - back
+    # volumes:
+    # - ./logs/dices.log:/app/dices.log
+
+  db:
+    image: cogito-db
+    container_name: cogito_db
+    restart: always
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    env_file:
+      - ./db/.env
+    volumes:
+      - cogito_postgres_data:/var/lib/postgresql/data
+      - ./db/initpg.sh:/docker-entrypoint-initdb.d/initpg.sh
+    networks:
+      - back
+
+volumes:
+  cogito_postgres_data:
+    driver: local
+
+networks:
+  reverse-proxy:
+    external:
+      name: reverse-proxy
+  back:
+    driver: bridge

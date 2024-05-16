@@ -1,5 +1,6 @@
-fastapi==0.78.0
-uvicorn[standard]==0.18.2
+fastapi
+uvicorn[standard]
+pydantic
 
 python-jose[cryptography]
 

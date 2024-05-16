@@ -12,3 +12,8 @@ load_dotenv(
 
 
 LEVEL_LOGGING = os.getenv('LEVEL_LOGGING')
+JWT_SECRET = os.getenv('JWT_SECRET')
+JWT_ALGORITHM = os.getenv('JWT_ALGORITHM')
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(
+    os.getenv('JWT_ACCESS_TOKEN_EXPIRE_MINUTES')
+)

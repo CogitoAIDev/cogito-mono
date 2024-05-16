@@ -1,12 +1,13 @@
+from typing import Optional
 from pydantic import BaseModel, Json, model_validator, EmailStr
 
 
 class UserBase(BaseModel):
-    user_id: int | None
-    user_name: str | None
-    email: EmailStr | None
-    tg_user_id: int | None
-    context: Json | None
+    user_id: Optional[int] = None
+    user_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    tg_user_id: Optional[int] = None
+    context: Optional[Json] = None
 
 
 class UserCreateDTO(UserBase):

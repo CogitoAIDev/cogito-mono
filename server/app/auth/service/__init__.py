@@ -1,2 +1,2 @@
 from .interface import IAuthService
-from .service import AuthService
+from .dependencies import get_auth_service

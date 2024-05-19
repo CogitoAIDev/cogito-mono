@@ -1,1 +1,7 @@
-from .schemas import UserCreateDTO, UserUpdateDTO, UserResponseDTO
+from .schemas import (
+    UserCreateDTO,
+    EmailRegisterDTO,
+    TelegramRegisterDTO,
+    UserUpdateDTO,
+    UserResponseDTO
+)

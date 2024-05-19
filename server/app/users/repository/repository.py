@@ -11,8 +11,9 @@ class UserRepository(IUserRepository):
     def __init__(self):
         ...
 
-    def get_users(
-        self, user_ids: list[int], filters: dict | None
+    def get_users_by_ids(
+        self, 
+        user_ids: list[int]
     ) -> list[UserResponseDTO] | None: ...
 
     def get_user_by_id(

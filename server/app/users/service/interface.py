@@ -2,7 +2,8 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 from app.users.schemas import (
-    UserCreateDTO,
+    EmailRegisterDTO,
+    TelegramRegisterDTO,
     UserUpdateDTO,
     UserResponseDTO
 )
@@ -10,10 +11,9 @@ from app.users.schemas import (
 
 class IUserService(ABC):
     @abstractmethod
-    async def find_users(
+    async def find_users_by_ids(
         self,
-        user_ids: list[int],
-        filters: dict | None
+        user_ids: Optional[list[int]]
     ) -> Optional[list[UserResponseDTO]]: ...
 
     @abstractmethod
@@ -23,15 +23,24 @@ class IUserService(ABC):
 
     @abstractmethod
     async def find_user_by_filters(
-        self, filters: dict | None
+        self,
+        filters: Optional[dict]
     ) -> Optional[UserResponseDTO]: ...
 
     @abstractmethod
-    async def register_user(
-        self, user_data: UserCreateDTO
+    async def register_user_by_email(
+        self,
+        user_data: EmailRegisterDTO
+    ) -> Optional[UserResponseDTO]: ...
+
+    @abstractmethod
+    async def register_user_by_telegram_user_id(
+        self,
+        user_data: TelegramRegisterDTO
     ) -> Optional[UserResponseDTO]: ...
 
     @abstractmethod
     async def update_user(
-        self, user_data: UserUpdateDTO
+        self,
+        user_data: UserUpdateDTO
     ) -> Optional[UserResponseDTO]: ...

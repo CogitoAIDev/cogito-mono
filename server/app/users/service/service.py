@@ -6,7 +6,8 @@ from app.auth.service import IAuthService
 
 from app.users.repository import IUserRepository
 from app.users.schemas import (
-    UserCreateDTO,
+    EmailRegisterDTO,
+    TelegramRegisterDTO,
     UserResponseDTO,
     UserUpdateDTO
 )
@@ -25,25 +26,19 @@ class UserService(IUserService):
         self.user_repository = user_repository
         self.auth_service = auth_service
 
-    async def find_users(
+    async def find_users_by_ids(
             self,
-            user_ids: list[int],
-            filters: dict | None
+            user_ids: Optional[list[int]]
     ) -> Optional[list[UserResponseDTO]]:
-        return [
-            UserResponseDTO(
-                user_id=1
-            ),
-            UserResponseDTO(
-                user_id=9
-            ),
-        ]
+        if user_ids is None:
+            user_ids = [1, 1, 1, 1, 1]
+        return [UserResponseDTO(user_id=i) for i in user_ids]
 
     async def find_user_by_id(
         self,
         user_id: int
     ) -> Optional[UserResponseDTO]:
-        return UserResponseDTO(user_id=13)
+        return UserResponseDTO(user_id=user_id)
 
     async def find_user_by_filters(
         self,
@@ -51,13 +46,26 @@ class UserService(IUserService):
     ) -> Optional[UserResponseDTO]:
         return UserResponseDTO(user_id=13)
 
-    async def register_user(
+    async def register_user_by_email(
         self,
-        user_data: UserCreateDTO
+        user_data: EmailRegisterDTO
     ) -> Optional[UserResponseDTO]:
         logger.debug(user_data.model_dump(), type(user_data.model_dump()))
         return UserResponseDTO(
             user_id=19,
+            **user_data.model_dump(
+                exclude_none=True,
+                exclude=['password']
+            )
+        )
+
+    async def register_user_by_telegram_user_id(
+            self,
+            user_data: TelegramRegisterDTO
+    ) -> UserResponseDTO | None:
+        logger.debug(user_data.model_dump(), type(user_data.model_dump()))
+        return UserResponseDTO(
+            user_id=191,
             **user_data.model_dump(exclude_none=True)
         )
 

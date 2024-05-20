@@ -1,11 +1,11 @@
 fastapi
 uvicorn[standard]
 pydantic
+psycopg2
 
 python-jose[cryptography]
 
 python-dotenv
-
 httpx
 pytest
 pytest-asyncio

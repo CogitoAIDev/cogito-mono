@@ -54,9 +54,25 @@ services:
     networks:
       - back
 
+  pgadmin:
+    image: cogito-pgadmin
+    container_name: cogito-pgadmin
+    restart: always
+    build:
+      context: ./pgadmin
+      dockerfile: Dockerfile
+    env_file:
+      - ./pgadmin/.env
+    ports:
+      - 5050:80
+    networks:
+      - back
+      - reverse-proxy
+
 volumes:
   cogito_postgres_data:
     driver: local
+    name: cogito_postgres_data
 
 networks:
   reverse-proxy:

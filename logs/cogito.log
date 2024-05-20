@@ -1,0 +1,14 @@
+2024-05-20 16:26:45,899 - cogito_logger - DEBUG - Inside users.api in find user by id with user_id: 2
+2024-05-20 16:26:45,899 - cogito_logger - DEBUG - Inside get_user_by_id user_repository with user_id 2
+2024-05-20 16:28:28,535 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
+2024-05-20 16:28:28,545 - cogito_logger - INFO - Connection pool created
+2024-05-20 16:28:28,611 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 16:28:31,521 - cogito_logger - DEBUG - Inside users.api in find user by id with user_id: 2
+2024-05-20 16:28:31,521 - cogito_logger - DEBUG - Inside get_user_by_id user_repository with user_id 2
+2024-05-20 16:28:31,528 - cogito_logger - ERROR - User Service UserNotFound exeption: User with 2 not found
+Traceback (most recent call last):
+  File "/app/users/service/service.py", line 43, in find_user_by_id
+    return self.user_repository.get_user_by_id(user_id)
+  File "/app/users/repository/repository.py", line 38, in get_user_by_id
+    raise UserNotFound(f'User with {user_id} not found')
+app.users.exceptions.UserNotFound: User with 2 not found

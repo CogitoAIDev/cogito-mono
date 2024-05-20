@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Body, Query, HTTPException, status
 
 from app.config import logger
+from app.users.exceptions import UserNotFound
 from app.users.service import IUserService, get_user_service
 from app.users.schemas import (
     EmailRegisterDTO,
@@ -96,9 +97,12 @@ async def find_user_by_id(
         f'Inside users.api in find user by id with user_id: {user_id}')
     try:
         return await user_service.find_user_by_id(user_id)
-    except Exception as e:
-        logger.error('Something is going wrong... :[')
-        logger.exception(e)
+
+    except UserNotFound as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
 
 
 @user_router.put(

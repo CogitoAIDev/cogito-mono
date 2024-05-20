@@ -1,66 +1,80 @@
-import os
 from psycopg2 import pool
-from dotenv import load_dotenv
+from contextlib import contextmanager
 
-# Load environment variables from .env file
-load_dotenv()
+from app.config import logger
+
+from .constants import (
+    DB_HOST,
+    DB_NAME,
+    DB_USER,
+    DB_PASSWORD,
+    DB_PORT
+)
 
 
-class DatabaseConnectionPool:
+class DatabaseConnectionPool():
     _connection_pool = None
 
-    @classmethod
-    def initialize_pool(cls, minconn, maxconn):
-        if cls._connection_pool is None:
+    def __init__(
+        self,
+        minconn: int,
+        maxconn: int
+    ) -> None:
+        if self._connection_pool is None:
             try:
-                cls._connection_pool = pool.SimpleConnectionPool(
+                logger.debug(f'DB_HOST: {DB_HOST}, DB_database: {DB_NAME}')
+                self._connection_pool = pool.SimpleConnectionPool(
                     minconn,
                     maxconn,
-                    host=os.getenv('DB_HOST'),
-                    database=os.getenv('DB_NAME'),
-                    user=os.getenv('DB_USER'),
-                    password=os.getenv('DB_PASSWORD'),
-                    port=os.getenv('DB_PORT')
+                    database=DB_NAME,
+                    user=DB_USER,
+                    password=DB_PASSWORD,
+                    port=DB_PORT,
+                    host=DB_HOST,
                 )
-                print("Connection pool created")
+                logger.info('Connection pool created')
             except Exception as e:
-                print(f"Failed to create connection pool: {e}")
+                logger.error(f"Failed to create connection pool: {e}")
                 raise
 
-    @classmethod
-    def get_connection(cls):
-        if cls._connection_pool is None:
-            raise Exception("Database connection pool is not initialized")
+    @contextmanager
+    def get_connection_with_cursor(self):
+        conn, cursor = self._get_connection_with_cursor()
         try:
-            return cls._connection_pool.getconn()
+            yield cursor
         except Exception as e:
-            print(f"Failed to get connection: {e}")
-            raise
+            conn.rollback()
+            raise e
+        else:
+            conn.commit()
+        finally:
+            cursor.close()
+            self._put_connection(conn)
 
-    @classmethod
-    def get_connection_with_cursor(cls):
+    def _get_connection_with_cursor(self):
         try:
-            conn = cls.get_connection()
+            conn = self._connection_pool.getconn()
             cursor = conn.cursor()
             return conn, cursor
         except Exception as e:
-            print(f"Failed to get connection with cursor: {e}")
+            logger.error(f"Failed to get connection with cursor: {e}")
             raise
 
-    @classmethod
-    def put_connection(cls, conn):
+    def _put_connection(self, conn):
         try:
-            cls._connection_pool.putconn(conn)
+            self._connection_pool.putconn(conn)
         except Exception as e:
-            print(f"Failed to put connection back to pool: {e}")
+            logger.error(f"Failed to put connection back to pool: {e}")
             raise
 
-    @classmethod
-    def close_all_connections(cls):
-        if cls._connection_pool:
+    def _close_all_connections(self):
+        if self._connection_pool:
             try:
-                cls._connection_pool.closeall()
-                print("Connection pool closed")
+                self._connection_pool.closeall()
+                logger.info("Connection pool closed")
             except Exception as e:
-                print(f"Failed to close all connections: {e}")
+                logger.error(f"Failed to close all connections: {e}")
                 raise
+
+
+db_pool_connection = DatabaseConnectionPool(1, 10)

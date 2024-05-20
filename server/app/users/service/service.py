@@ -4,6 +4,7 @@ from app.config import logger
 
 from app.auth.service import IAuthService
 
+from app.users.exceptions import UserNotFound
 from app.users.repository import IUserRepository
 from app.users.schemas import (
     EmailRegisterDTO,
@@ -38,7 +39,11 @@ class UserService(IUserService):
         self,
         user_id: int
     ) -> Optional[UserResponseDTO]:
-        return UserResponseDTO(user_id=user_id)
+        try:
+            return self.user_repository.get_user_by_id(user_id)
+        except UserNotFound as e:
+            logger.exception(f'User Service UserNotFound exeption: {e}')
+            raise e
 
     async def find_user_by_filters(
         self,

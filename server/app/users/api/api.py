@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Body, Query, HTTPException, status
 
 from app.config import logger
-from app.users.exceptions import UserNotFound
+from app.users.exceptions import UserNotFound, UniqueDuplicated
 from app.users.service import IUserService, get_user_service
 from app.users.schemas import (
     EmailRegisterDTO,
@@ -48,6 +48,11 @@ async def register_user_by_telegram_user_id(
     )
     try:
         return await user_service.register_user_by_telegram_user_id(user_telegram_data)
+    except UniqueDuplicated as e:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(e)
+        )
     except Exception as e:
         logger.error('Something is going wrong... :[')
         logger.exception(e)

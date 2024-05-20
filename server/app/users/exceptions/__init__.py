@@ -1,2 +1,6 @@
 class UserNotFound(Exception):
     ...
+
+
+class UniqueDuplicated(Exception):
+    ...

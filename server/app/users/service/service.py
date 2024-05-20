@@ -4,7 +4,7 @@ from app.config import logger
 
 from app.auth.service import IAuthService
 
-from app.users.exceptions import UserNotFound
+from app.users.exceptions import UserNotFound, UniqueDuplicated
 from app.users.repository import IUserRepository
 from app.users.schemas import (
     EmailRegisterDTO,
@@ -69,10 +69,14 @@ class UserService(IUserService):
             user_data: TelegramRegisterDTO
     ) -> UserResponseDTO | None:
         logger.debug(user_data.model_dump(), type(user_data.model_dump()))
-        return UserResponseDTO(
-            user_id=191,
-            **user_data.model_dump(exclude_none=True)
-        )
+        try:
+            return self.user_repository.create_user(user_data)
+
+        except Exception as e:
+            logger.error(
+                f'Error in user.repository.register_user_by_tg_user_id: {e}'
+            )
+            raise e
 
     async def update_user(
         self,

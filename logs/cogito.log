@@ -1,14 +1,68 @@
-2024-05-20 16:26:45,899 - cogito_logger - DEBUG - Inside users.api in find user by id with user_id: 2
-2024-05-20 16:26:45,899 - cogito_logger - DEBUG - Inside get_user_by_id user_repository with user_id 2
-2024-05-20 16:28:28,535 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
-2024-05-20 16:28:28,545 - cogito_logger - INFO - Connection pool created
-2024-05-20 16:28:28,611 - cogito_logger - INFO - Cogito app is here in mono!
-2024-05-20 16:28:31,521 - cogito_logger - DEBUG - Inside users.api in find user by id with user_id: 2
-2024-05-20 16:28:31,521 - cogito_logger - DEBUG - Inside get_user_by_id user_repository with user_id 2
-2024-05-20 16:28:31,528 - cogito_logger - ERROR - User Service UserNotFound exeption: User with 2 not found
+2024-05-20 17:38:21,825 - cogito_logger - DEBUG - Inside user.api in register with tg_user_id with user_data: user_id=None user_name=None email=None password=None telegram_user_id=91 context=None
+2024-05-20 17:38:21,826 - cogito_logger - DEBUG - Composed([Literal(91)])
+2024-05-20 17:38:21,827 - cogito_logger - ERROR - duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
 Traceback (most recent call last):
-  File "/app/users/service/service.py", line 43, in find_user_by_id
-    return self.user_repository.get_user_by_id(user_id)
-  File "/app/users/repository/repository.py", line 38, in get_user_by_id
-    raise UserNotFound(f'User with {user_id} not found')
-app.users.exceptions.UserNotFound: User with 2 not found
+  File "/app/users/repository/repository.py", line 78, in create_user
+    cursor.execute(query)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:38:21,827 - cogito_logger - ERROR - Error in user.repository.register_user_by_tg_user_id: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:43:18,529 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
+2024-05-20 17:43:18,547 - cogito_logger - INFO - Connection pool created
+2024-05-20 17:43:18,658 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 17:43:22,706 - cogito_logger - DEBUG - Inside user.api in register with tg_user_id with user_data: user_id=None user_name=None email=None password=None telegram_user_id=91 context=None
+2024-05-20 17:43:22,714 - cogito_logger - DEBUG - Composed([Literal(91)])
+2024-05-20 17:43:22,724 - cogito_logger - ERROR - duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+Traceback (most recent call last):
+  File "/app/users/repository/repository.py", line 82, in create_user
+    cursor.execute(query)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:43:51,407 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
+2024-05-20 17:43:51,418 - cogito_logger - INFO - Connection pool created
+2024-05-20 17:43:51,517 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 17:43:55,561 - cogito_logger - DEBUG - Inside user.api in register with tg_user_id with user_data: user_id=None user_name=None email=None password=None telegram_user_id=91 context=None
+2024-05-20 17:43:55,565 - cogito_logger - DEBUG - Composed([Literal(91)])
+2024-05-20 17:43:55,566 - cogito_logger - ERROR - duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+Traceback (most recent call last):
+  File "/app/users/repository/repository.py", line 82, in create_user
+    cursor.execute(query)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:44:07,652 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
+2024-05-20 17:44:07,669 - cogito_logger - INFO - Connection pool created
+2024-05-20 17:44:07,770 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 17:44:12,125 - cogito_logger - DEBUG - Inside user.api in register with tg_user_id with user_data: user_id=None user_name=None email=None password=None telegram_user_id=91 context=None
+2024-05-20 17:44:12,133 - cogito_logger - DEBUG - Composed([Literal(91)])
+2024-05-20 17:44:12,140 - cogito_logger - ERROR - duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+Traceback (most recent call last):
+  File "/app/users/repository/repository.py", line 82, in create_user
+    cursor.execute(query)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:44:43,899 - cogito_logger - DEBUG - DB_HOST: cogito_db, DB_database: main
+2024-05-20 17:44:43,913 - cogito_logger - INFO - Connection pool created
+2024-05-20 17:44:44,000 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 17:44:49,067 - cogito_logger - DEBUG - Inside user.api in register with tg_user_id with user_data: user_id=None user_name=None email=None password=None telegram_user_id=91 context=None
+2024-05-20 17:44:49,072 - cogito_logger - DEBUG - Composed([Literal(91)])
+2024-05-20 17:44:49,078 - cogito_logger - ERROR - duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+Traceback (most recent call last):
+  File "/app/users/repository/repository.py", line 82, in create_user
+    cursor.execute(query)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+
+2024-05-20 17:44:49,079 - cogito_logger - ERROR - Error in user.repository.register_user_by_tg_user_id: Unique duplicated error: duplicate key value violates unique constraint "users_telegram_user_id_key"
+DETAIL:  Key (telegram_user_id)=(91) already exists.
+

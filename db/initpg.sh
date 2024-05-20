@@ -10,9 +10,10 @@ EOSQL
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "main" <<-EOSQL
     CREATE TABLE users (
         user_id SERIAL PRIMARY KEY,
-        user_name VARCHAR NOT NULL,
+        user_name VARCHAR NOT NULL DEFAULT 'Guest',
+        context JSONB NOT NULL DEFAULT '{}'::jsonb,
+        email_verified BOOL NOT NULL DEFAULT FALSE,
         telegram_user_id INTEGER UNIQUE,
-        context JSONB NOT NULL,
         email VARCHAR,
         password VARCHAR
     );

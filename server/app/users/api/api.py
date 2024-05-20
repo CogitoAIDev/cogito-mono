@@ -107,12 +107,13 @@ async def find_user_by_id(
     response_model_exclude_none=True
 )
 async def update_user(
+    user_id,
     user_service: IUserService = Depends(get_user_service),
     new_user_data: UserUpdateDTO = Body()
 ):
     logger.debug(f'Inside users.api in update_user with: {new_user_data}')
     try:
-        return await user_service.update_user(new_user_data)
+        return await user_service.update_user(user_id, new_user_data)
     except Exception as e:
         logger.error('Something is going wrong... :[')
         logger.exception(e)

@@ -71,6 +71,10 @@ class UserService(IUserService):
 
     async def update_user(
         self,
+        user_id: int,
         user_data: UserUpdateDTO
     ) -> Optional[UserResponseDTO]:
-        return UserResponseDTO(user_id=111)
+        return UserResponseDTO(
+            user_id=user_id,
+            **user_data.model_dump(exclude_none=True),
+        )

@@ -30,12 +30,12 @@ services:
       - 8000:8000
     env_file:
       - ./server/.env
-    # environment:
-    #   - LEVEL_LOGGING=DEBUG
+    environment:
+      - LEVEL_LOGGING=DEBUG
     networks:
       - back
-    # volumes:
-    # - ./logs/dices.log:/app/dices.log
+    volumes:
+      - ./logs/cogito.log:/app/cogito.log
 
   db:
     image: cogito-db

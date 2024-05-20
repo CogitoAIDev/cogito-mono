@@ -1,0 +1,28 @@
+2024-05-20 10:31:21,581 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 10:31:24,385 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:35:49,681 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 10:35:53,477 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:36:38,559 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 10:36:40,529 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:36:40,530 - cogito_logger - ERROR - Something is going wrong... :[
+2024-05-20 10:36:40,530 - cogito_logger - ERROR - app.users.schemas.schemas.UserResponseDTO() got multiple values for keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/app/users/api/api.py", line 116, in update_user
+    return await user_service.update_user(user_id, new_user_data)
+  File "/app/users/service/service.py", line 77, in update_user
+    return UserResponseDTO(
+TypeError: app.users.schemas.schemas.UserResponseDTO() got multiple values for keyword argument 'user_id'
+2024-05-20 10:37:07,705 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 10:37:10,150 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:37:10,150 - cogito_logger - ERROR - Something is going wrong... :[
+2024-05-20 10:37:10,150 - cogito_logger - ERROR - app.users.schemas.schemas.UserResponseDTO() got multiple values for keyword argument 'user_id'
+Traceback (most recent call last):
+  File "/app/users/api/api.py", line 116, in update_user
+    return await user_service.update_user(user_id, new_user_data)
+  File "/app/users/service/service.py", line 77, in update_user
+    return UserResponseDTO(
+TypeError: app.users.schemas.schemas.UserResponseDTO() got multiple values for keyword argument 'user_id'
+2024-05-20 10:37:28,398 - cogito_logger - INFO - Cogito app is here in mono!
+2024-05-20 10:37:30,498 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:38:23,771 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=None context=None
+2024-05-20 10:38:38,275 - cogito_logger - DEBUG - Inside users.api in update_user with: user_id=None user_name=None email=None password=None tg_user_id=11 context=None
